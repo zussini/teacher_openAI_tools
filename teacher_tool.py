@@ -7,21 +7,16 @@ def generate_output():
     tense = tense_entry.get()
     topic = topic_entry.get()
     request = request_entry.get()
-    print([tense,topic,request]) 
+    #print([tense,topic,request]) 
     openai.api_key = "OPEN_AI_API_KEY"
-    
     output = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
+    #prompt preparation - basing on user input
     messages=[
-    #{"role": "system", "content": "Generate"},
-    #{"role": "user", "content": "English text"},
-    #{"role": "assistant", "content": "exercise for tenses"},
     {"role": "user", "content": f"Prepare a student exercise to train {tense} with blank spaces to fill in. Make it about {topic}. {request}"},
-    #{"role": "user", "content": "write code to solve linear programe problem of three constraints "}
     ]
     )
     print(output['choices'][0]['message']['content'])
-    #print(output)
     f = open("english_tool_ex", "w")
     f.write(output['choices'][0]['message']['content'])
     f.close()
